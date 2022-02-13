@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reqres_http/post_result_model.dart';
+import 'package:reqres_http/user_model.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,6 +15,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   PostResult postResult = null;
+  User user = null;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -49,6 +51,25 @@ class _MyAppState extends State<MyApp> {
                   });
                 },
                 child: Text('POST'),
+              ),
+              Divider(
+                thickness: 1,
+              ),
+              Text(
+                user != null ? user.id + ' | ' + user.name : 'Tidak ada data',
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  User.connectToAPI('2').then((value) {
+                    user = value;
+                    setState(() {});
+                  });
+                },
+                child: Text('GET'),
               ),
             ],
           ),
